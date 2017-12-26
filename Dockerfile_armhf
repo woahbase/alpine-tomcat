@@ -1,0 +1,35 @@
+ARG ARCH=frommakefile
+ARG DOCKERSRC=frommakefile
+ARG USERNAME=frommakefile
+ARG JVVMAJOR=frommakefile
+#
+FROM ${USERNAME}/${DOCKERSRC}:${ARCH}_$(JVVMAJOR)
+#
+ARG TMVMAJOR=8
+ARG TMVERSION=8.5.24
+#
+ENV LANG=C.UTF-8 \
+    TOMCAT_HOME=/opt/tomcat \
+    CATALINA_HOME=/opt/tomcat \
+    CATALINA_OUT=/dev/null \
+    PATH=$CATALINA_HOME/bin:$PATH \
+    TOMCAT_NATIVE_LIBDIR=$CATALINA_HOME/native-jni-lib \
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
+#
+RUN set -xe \
+    && mkdir -p /opt \
+    && curl -o /tmp/apache-tomcat.tar.gz -SsL https://www.apache.org/dist/tomcat/tomcat-${TMVMAJOR}/v${TMVERSION}/bin/apache-tomcat-${TMVERSION}.tar.gz \
+    && tar -C /opt -xzf /tmp/apache-tomcat.tar.gz \
+    && ln -s /opt/apache-tomcat-${TMVERSION} ${TOMCAT_HOME} \
+    && apk add -uU --no-cache openssl ca-certificates tomcat-native \
+    && rm -rf /var/cache/apk/* /tmp/*
+#
+COPY conf/ ${TOMCAT_HOME}/conf/
+#
+VOLUME ["/opt/tomcat/webapps"]
+#
+EXPOSE 8080 8443 8009
+#
+ENTRYPOINT ["/opt/tomcat/bin/catalina.sh"]
+CMD ["run"]
+# ENTRYPOINT ["/init"]
