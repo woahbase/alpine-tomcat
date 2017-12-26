@@ -88,9 +88,8 @@ stop :
 	docker stop -t 2 docker_$(SVCNAME)
 
 test :
-	# test armhf in travis hangs
-	# if [ "$(ARCH)" != "armhf" ]; then docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) sh -ec 'java -version'; fi;
-	docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) 'configtest';
+	# test armhf in real device
+	if [ "$(ARCH)" != "armhf" ]; then docker run --rm -it $(NAMEFLAGS) $(RUNFLAGS) $(PORTFLAGS) $(MOUNTFLAGS) $(OTHERFLAGS) $(IMAGETAG) 'configtest'; fi;
 
 # -- }}}
 
