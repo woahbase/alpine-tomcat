@@ -25,8 +25,6 @@ BUILDFLAGS := --rm --force-rm --compress -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IM
 	--build-arg ARCH=$(ARCH) \
 	--build-arg DOCKERSRC=$(DOCKERSRC) \
 	--build-arg USERNAME=$(USERNAME) \
-	--build-arg PUID=$(PUID) \
-	--build-arg PGID=$(PGID) \
 	--build-arg JVVMAJOR=$(JVVMAJOR) \
 	--build-arg TMVMAJOR=$(TMVMAJOR) \
 	--build-arg TMVERSION=$(TMVERSION) \
@@ -37,7 +35,7 @@ BUILDFLAGS := --rm --force-rm --compress -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IM
 	--label org.label-schema.vcs-url="https://github.com/$(USERNAME)/$(DOCKEREPO)" \
 	--label org.label-schema.vendor=$(USERNAME)
 
-CACHEFLAGS := --no-cache=true --pull
+# CACHEFLAGS := --no-cache=true --pull
 MOUNTFLAGS := -v $(CURDIR)/webapps:/opt/tomcat/webapps
 NAMEFLAGS  := --name docker_$(SVCNAME) --hostname $(SVCNAME)
 OTHERFLAGS := -v /etc/hosts:/etc/hosts:ro -v /etc/localtime:/etc/localtime:ro # -e TZ=Asia/Kolkata

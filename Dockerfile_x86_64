@@ -24,12 +24,11 @@ RUN set -xe \
     && apk add -uU --no-cache openssl ca-certificates tomcat-native \
     && rm -rf /var/cache/apk/* /tmp/*
 #
-COPY conf/ ${TOMCAT_HOME}/conf/
+COPY tomcat/ ${TOMCAT_HOME}/
 #
 VOLUME ["/opt/tomcat/webapps"]
 #
 EXPOSE 8080 8443 8009
 #
-ENTRYPOINT ["/opt/tomcat/bin/catalina.sh"]
-CMD ["run"]
+ENTRYPOINT ["/opt/tomcat/run.sh"]
 # ENTRYPOINT ["/init"]
