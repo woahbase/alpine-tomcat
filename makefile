@@ -5,15 +5,14 @@ ARCH      := $(shell uname -m | sed "s_armv7l_armhf_")# armhf/x86_64 auto-detect
 OPSYS     := alpine
 SHCOMMAND := /bin/bash
 SVCNAME   := tomcat
-JVVMAJOR  := 8 # needed for source image selection
 TMVMAJOR  := 8
-TMVERSION := 8.5.24
+TMVERSION := 8.5.27
 USERNAME  := woahbase
 
 PUID       := $(shell id -u)
 PGID       := $(shell id -g)# gid 100(users) usually pre exists
 
-DOCKERSRC := $(OPSYS)-openjdk#
+DOCKERSRC := $(OPSYS)-openjdk8#
 DOCKEREPO := $(OPSYS)-$(SVCNAME)
 IMAGETAG  := $(USERNAME)/$(DOCKEREPO):$(ARCH)
 
@@ -25,12 +24,13 @@ BUILDFLAGS := --rm --force-rm --compress -f $(CURDIR)/Dockerfile_$(ARCH) -t $(IM
 	--build-arg ARCH=$(ARCH) \
 	--build-arg DOCKERSRC=$(DOCKERSRC) \
 	--build-arg USERNAME=$(USERNAME) \
-	--build-arg JVVMAJOR=$(JVVMAJOR) \
 	--build-arg TMVMAJOR=$(TMVMAJOR) \
 	--build-arg TMVERSION=$(TMVERSION) \
 	--label org.label-schema.build-date=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 	--label org.label-schema.name=$(DOCKEREPO) \
 	--label org.label-schema.schema-version="1.0" \
+	--label org.label-schema.url="https://woahbase.online/" \
+	--label org.label-schema.usage="https://woahbase.online/\#/images/$(DOCKEREPO)" \
 	--label org.label-schema.vcs-ref=$(shell git rev-parse --short HEAD) \
 	--label org.label-schema.vcs-url="https://github.com/$(USERNAME)/$(DOCKEREPO)" \
 	--label org.label-schema.vendor=$(USERNAME)
