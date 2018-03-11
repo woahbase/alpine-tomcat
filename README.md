@@ -8,7 +8,7 @@ This [image][233] serves as the server for applications / services
 that require a [Tomcat][135] server **with tomcat-native
 extentions**, running under [OpenJDK][136] 8.\*.\*.
 
-Current stable version is `8.5.28`.
+Current stable version is `8.5.29`.
 
 Based on [Alpine Linux][131]  from my [alpine-openjdk8][132] image with the [s6][133] init system
 and GNU LibC [overlayed][134] in it.
@@ -158,7 +158,7 @@ docker build --rm --compress --force-rm \
   --build-arg ARCH=x86_64 \
   --build-arg DOCKERSRC=alpine-openjdk8 \
   --build-arg TMVMAJOR=8 \
-  --build-arg TMVERSION=8.5.28 \
+  --build-arg TMVERSION=8.5.29 \
   --build-arg USERNAME=woahbase \
   -t woahbase/alpine-tomcat:x86_64 \
   .
