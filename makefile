@@ -6,7 +6,7 @@ OPSYS     := alpine
 SHCOMMAND := /bin/bash
 SVCNAME   := tomcat
 TMVMAJOR  := 8
-TMVERSION := 8.5.30
+TMVERSION := 8.5.31
 USERNAME  := woahbase
 
 PUID       := $(shell id -u)
