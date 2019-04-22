@@ -8,7 +8,7 @@ This [image][233] serves as the server for applications / services
 that require a [Tomcat][135] server **with tomcat-native
 extentions**, running under [OpenJDK][136] 8.\*.\*.
 
-Current stable version is `8.5.39`.
+Current stable version is `8.5.40`.
 
 Based on [Alpine Linux][131]  from my [alpine-openjdk8][132] image with the [s6][133] init system
 and GNU LibC [overlayed][134] in it.
